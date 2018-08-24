@@ -1,12 +1,10 @@
-print %x{clear}
+
 
 begin
-    set_balance = File.open("balance.txt", 'a+') { |file| file.readline}.to_i
+    users = eval(File.open("balance.txt", 'a+') { |file| file.readline})
 rescue EOFError => e
-    set_balance = 0
+    users = Hash.new
 end
-
-users = Hash.new()
 
 def authenticate(users)
     attempts = 3
@@ -16,7 +14,7 @@ def authenticate(users)
         username = gets.chomp
         print "Please enter your password: "
         password = gets.chomp
-        if users[username] == password
+        if users[username]["password"] == password
             puts "Welcome #{username}"
             return username, users[username]["balance"], users[username]["history"]
         else
@@ -34,10 +32,10 @@ def signup(users)
     username = gets.chomp
     print "Please enter a password: "
     password = gets.chomp
-    users[username] = {"password": password,
-                       "balance": 0,
-                       "history": []}
-    return users
+    users[username] = {"password" => password,
+                       "balance" => 0,
+                       "history" => []}
+    return users, username
 end
 
 def display_balance(balance)
@@ -73,8 +71,10 @@ def history(history)
 end
 
 def exit(users, username, balance, history)
+    File.open("balance.txt", 'w') {|file| file.write(users)}
+end
 
-def main(users, balance, history)
+def main(users, username, balance, history)
     running = true
     while running
         puts "What would you like to do? (Options: balance, deposit, withdraw, history, exit)"
@@ -89,15 +89,19 @@ def main(users, balance, history)
         when "history"
             history(history)
         when "exit"
-            File.open("balance.txt", 'w') { |file| file.write(users)}
+            users[username]["balance"] = balance
+            users[username]["history"] = history
             running = false
+            exit(users, username, balance, history)
             break
         else
             puts "Invalid selection!"
         end
         print "Would you like to return to the main menu? (Y/N): "
         if gets.chomp == "N"
-            File.open("balance.txt", 'w') { |file| file.write(users)}
+            users[username]["balance"] = balance
+            users[username]["history"] = history
+            exit(users, username, balance, history)
             running = false
             break
         else
@@ -110,6 +114,7 @@ end
 running = true
 
 while running
+    print %x{clear}
     puts "Welcome to the banking app!"
     print "Log In(l) or Sign Up(s) or Exit(e): "
     choice = gets.chomp
@@ -117,8 +122,11 @@ while running
     when "l"
         username, balance, history = authenticate(users)
         if balance
-            balance, history = main(balance, history)
+            balance, history = main(users, username, balance, history)
         end
+    when "s"
+        users, username = signup(users)
+        balance, history = main(users, username, 0, [])
     when "e"
         running = false
         break
