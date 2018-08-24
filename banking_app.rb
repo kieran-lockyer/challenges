@@ -12,13 +12,17 @@ def authenticate(users)
         username = gets.chomp
         print "Please enter your password: "
         password = gets.chomp
-        if users[username]["password"] == password
-            puts "Welcome #{username}"
-            return username, users[username]["balance"], users[username]["history"]
+        if users.keys.include?(username)
+            if users[username]["password"] == password
+                puts "Welcome #{username}"
+                return username, users[username]["balance"], users[username]["history"]
+            else
+                puts "Your password is invalid"
+                attempts -= 1
+            end
         else
-            puts "Your username or password are incorrect"
+            puts "Your username is invalid"
             attempts -= 1
-            puts
         end
     end
     puts "You have used all available attempts. Please try again later"
