@@ -1,5 +1,3 @@
-
-
 begin
     users = eval(File.open("balance.txt", 'a+') { |file| file.readline})
 rescue EOFError => e
@@ -101,7 +99,7 @@ def main(users, username, balance, history)
         if gets.chomp == "N"
             users[username]["balance"] = balance
             users[username]["history"] = history
-            exit(users, username, balance, history)
+            exit(users, username, balance,)
             running = false
             break
         else
@@ -128,6 +126,7 @@ while running
         users, username = signup(users)
         balance, history = main(users, username, 0, [])
     when "e"
+        exit(users, username, balance, history)
         running = false
         break
     else

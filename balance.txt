@@ -1,1 +1,1 @@
-{"Dave"=>{"password"=>"pass", "balance"=>100, "history"=>["Deposited $100"]}, "Matt"=>{"password"=>"pass", "balance"=>0, "history"=>[]}}
+{"Dave"=>{"password"=>"pass", "balance"=>150, "history"=>["Deposited $100", "Deposited $50"]}, "Matt"=>{"password"=>"pass", "balance"=>50, "history"=>["Deposited $50"]}}
