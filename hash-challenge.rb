@@ -84,34 +84,64 @@ end
 # Create a method to display their star sign based on their birthday.
 # Someone's probably already coded this date to star sign functionality - replace your method with a gem
 
+# require 'zodiac'
+
+# students = []
+# current_year = Time.now.year
+# my_dob = [29, 03, 1987]
+
+# print "Please enter a student name: "
+# student_name = gets.chomp
+# if students.keys.include?(student_name)
+#     student_dob = students[student_name][0]
+#     student_time = Time.new(2018, student_dob.to_s[4..5].to_i, student_dob.to_s[1..2].to_i)
+#     my_time = Time.new(2018, my_dob.to_s[4..5].to_i, my_dob.to_s[1..2].to_i)
+#     puts "#{student_name}'s D.O.B. is #{students[student_name][0].to_s[1..-2]} and Kieran's D.O.B. is #{my_dob.to_s[1..-2]}."
+#     puts "There are #{my_time.to_i > student_time.to_i ? (my_time.to_i - student_time.to_i) / 60 / 60 / 24 : (student_time.to_i - my_time.to_i) / 60 / 60 / 24 } days between their birthdays"
+#     puts "#{student_name}'s zodiac sign is #{student_time.zodiac_sign}'"
+# else
+#     print "Please enter their birth year: "
+#     birth_year = gets.chomp.to_i
+#     print "Please enter their birth month: "
+#     birth_month = gets.chomp.to_i
+#     print "Please enter their birth day: " 
+#     birth_day = gets.chomp.to_i
+#     students[student_name] = [[birth_day, birth_month, birth_year], my_dob]
+#     student_dob = students[student_name][0]
+#     student_time = Time.new(current_year, student_dob.to_s[4..5].to_i, student_dob.to_s[1..2].to_i)
+#     my_time = Time.new(current_year, my_dob.to_s[4..5].to_i, my_dob.to_s[1..2].to_i)
+#     puts "#{student_name}'s D.O.B. is #{students[student_name][0].to_s[1..-2]} and Kieran's D.O.B. is #{my_dob.to_s[1..-2]}."
+#     puts "There are #{my_time.to_i > student_time.to_i ? (my_time.to_i - student_time.to_i) / 60 / 60 / 24 : (student_time.to_i - my_time.to_i) / 60 / 60 / 24 } days between their birthdays"
+#     puts "#{student_name}'s zodiac sign is #{student_time.zodiac_sign}'"
+# end
+
 require 'zodiac'
 
-students = Hash.new
-current_year = Time.now.year
-my_dob = [29, 03, 1987]
+students = [{name: "Kieran", day: 29, month: 03, year: 1987}, {name: "Jess", day:01, month: 01, year:1991}]
 
-print "Please enter a student name: "
+print "Please enter a students name: "
 student_name = gets.chomp
-if students.keys.include?(student_name)
-    student_dob = students[student_name][0]
-    student_time = Time.new(2018, student_dob.to_s[4..5].to_i, student_dob.to_s[1..2].to_i)
-    my_time = Time.new(2018, my_dob.to_s[4..5].to_i, my_dob.to_s[1..2].to_i)
-    puts "#{student_name}'s D.O.B. is #{students[student_name][0].to_s[1..-2]} and Kieran's D.O.B. is #{my_dob.to_s[1..-2]}."
-    puts "There are #{my_time.to_i > student_time.to_i ? (my_time.to_i - student_time.to_i) / 60 / 60 / 24 : (student_time.to_i - my_time.to_i) / 60 / 60 / 24 } days between their birthdays"
-    puts "#{student_name}'s zodiac sign is #{student_time.zodiac_sign}'"
-else
-    print "Please enter their birth year: "
-    birth_year = gets.chomp.to_i
-    print "Please enter their birth month: "
-    birth_month = gets.chomp.to_i
-    print "Please enter their birth day: " 
-    birth_day = gets.chomp.to_i
-    students[student_name] = [[birth_day, birth_month, birth_year], my_dob]
-    student_dob = students[student_name][0]
-    student_time = Time.new(2018, student_dob.to_s[4..5].to_i, student_dob.to_s[1..2].to_i)
-    my_time = Time.new(2018, my_dob.to_s[4..5].to_i, my_dob.to_s[1..2].to_i)
-    puts "#{student_name}'s D.O.B. is #{students[student_name][0].to_s[1..-2]} and Kieran's D.O.B. is #{my_dob.to_s[1..-2]}."
-    puts "There are #{my_time.to_i > student_time.to_i ? (my_time.to_i - student_time.to_i) / 60 / 60 / 24 : (student_time.to_i - my_time.to_i) / 60 / 60 / 24 } days between their birthdays"
-    puts "#{student_name}'s zodiac sign is #{student_time.zodiac_sign}'"
+print "Please enter your birthdate in dd/mm/yyyy format: "
+my_dob = gets.chomp.split("/")
+
+student_found = false
+
+for student in students
+    if student[:name] == student_name
+        student_found = true
+        puts "#{student_name}'s date of birthday is #{student[:day]}/#{student[:month]}/#{student[:year]}"
+        my_dob = Time.new(2018, my_dob[1], my_dob[0]).to_i
+        student_dob = Time.new(2018, student[:month], student[:day])
+        unless my_dob == student_dob.to_i
+            if student_dob.to_i > my_dob
+                age_difference = (student_dob.to_i - my_dob) / 60 / 60 / 24
+            else
+                age_difference = (my_dob - student_dob.to_i) / 60 / 60 / 24
+            end
+        end
+        puts "There are #{age_difference} days between your birthdays."
+        puts "#{student_name} is a #{student_dob.zodiac_sign}"
+    end
 end
 
+puts "No student by that name found." unless student_found
