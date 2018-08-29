@@ -86,7 +86,7 @@ end
 
 # require 'zodiac'
 
-# students = []
+# students = Hash.new
 # current_year = Time.now.year
 # my_dob = [29, 03, 1987]
 
