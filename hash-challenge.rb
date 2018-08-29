@@ -6,9 +6,9 @@ person = {name: 'John', height: '2m', weight: '70kgs'}
 #Iterate through the hash so we see John's details.
 
 =begin
-person[:occupation] = "web developer"
-person[:hobbies] = "art"
-
+# person[:occupation] = "web developer"
+# person[:hobbies] = "art"
+person.merge!({occupation: "web developer", hobbies: "art"})
 person.delete(:weight)
 
 puts person[:height]
@@ -33,7 +33,11 @@ end
 # Allow items to be added to the list. E.g. "Press 1 to add items, press 2 to work out a total".
 # Store these new items to the file.
 
-items = eval(File.open("items.txt", 'r') {|file| file.readline})
+# items = eval(File.open("items.txt", 'r') {|file| file.readline}) instead of doing this which is dangerous because of the eval method do
+
+require 'json'
+
+items = JSON.parse(File.read('items.json'), :symbolize_names => true) #2nd Argument converts keys as strings to keys as symbols
 
 while true
     print "Press 1 to add items, press 2 to work out a total, or type 'quit' to exit: "
@@ -52,9 +56,9 @@ while true
             puts
         end
     when "2"
-        cust_owes = 0
         print "Enter a customer's name: "
         cust_name = gets.chomp
+        cust_owes = 0
         for item in items
             if item[:customer] == cust_name
                 cust_owes += item[:cost]
@@ -68,7 +72,7 @@ while true
     end
 end
 
-File.open("items.txt", 'w') {|file| file.write(items)}
+File.write('items.json', JSON.dump(items))
 
 # Beast Mode ++
 # Create a ruby application that requests the name of a classmate, and displays their birthday and your birthday. 
