@@ -35,44 +35,44 @@ end
 
 # items = eval(File.open("items.txt", 'r') {|file| file.readline}) instead of doing this which is dangerous because of the eval method do
 
-require 'json'
+# require 'json'
 
-items = JSON.parse(File.read('items.json'), :symbolize_names => true) #2nd Argument converts keys as strings to keys as symbols
+# items = JSON.parse(File.read('items.json'), :symbolize_names => true) #2nd Argument converts keys as strings to keys as symbols
 
-while true
-    print "Press 1 to add items, press 2 to work out a total, or type 'quit' to exit: "
-    choice = gets.chomp
-    case choice
-    when "1"
-        print "How many items would you like to add: "
-        gets.chomp.to_i.times do 
-            print "Enter a customer's name: "
-            new_entry = {customer: gets.chomp}
-            print "Enter the item you would like to add: "
-            new_entry[:item] = gets.chomp
-            print "Enter the price of the item: "
-            new_entry[:cost] = gets.chomp.to_i
-            items.push(new_entry)
-            puts
-        end
-    when "2"
-        print "Enter a customer's name: "
-        cust_name = gets.chomp
-        cust_owes = 0
-        for item in items
-            if item[:customer] == cust_name
-                cust_owes += item[:cost]
-            end
-        end
-        puts "#{cust_name} owes #{"%.2f" % cust_owes}"
-    when "quit"
-        break
-    else
-        puts "Invalid input"
-    end
-end
+# while true
+#     print "Press 1 to add items, press 2 to work out a total, or type 'quit' to exit: "
+#     choice = gets.chomp
+#     case choice
+#     when "1"
+#         print "How many items would you like to add: "
+#         gets.chomp.to_i.times do 
+#             print "Enter a customer's name: "
+#             new_entry = {customer: gets.chomp}
+#             print "Enter the item you would like to add: "
+#             new_entry[:item] = gets.chomp
+#             print "Enter the price of the item: "
+#             new_entry[:cost] = gets.chomp.to_i
+#             items.push(new_entry)
+#             puts
+#         end
+#     when "2"
+#         print "Enter a customer's name: "
+#         cust_name = gets.chomp
+#         cust_owes = 0
+#         for item in items
+#             if item[:customer] == cust_name
+#                 cust_owes += item[:cost]
+#             end
+#         end
+#         puts "#{cust_name} owes #{"%.2f" % cust_owes}"
+#     when "quit"
+#         break
+#     else
+#         puts "Invalid input"
+#     end
+# end
 
-File.write('items.json', JSON.dump(items))
+# File.write('items.json', JSON.dump(items))
 
 # Beast Mode ++
 # Create a ruby application that requests the name of a classmate, and displays their birthday and your birthday. 
@@ -84,34 +84,34 @@ File.write('items.json', JSON.dump(items))
 # Create a method to display their star sign based on their birthday.
 # Someone's probably already coded this date to star sign functionality - replace your method with a gem
 
-# require 'zodiac'
+require 'zodiac'
 
-# students = Hash.new
-# current_year = Time.now.year
-# my_dob = [29, 03, 1987]
+students = Hash.new
+current_year = Time.now.year
+my_dob = [29, 03, 1987]
 
-# print "Please enter a student name: "
-# student_name = gets.chomp
-# if students.keys.include?(student_name)
-#     student_dob = students[student_name][0]
-#     student_time = Time.new(2018, student_dob.to_s[4..5].to_i, student_dob.to_s[1..2].to_i)
-#     my_time = Time.new(2018, my_dob.to_s[4..5].to_i, my_dob.to_s[1..2].to_i)
-#     puts "#{student_name}'s D.O.B. is #{students[student_name][0].to_s[1..-2]} and Kieran's D.O.B. is #{my_dob.to_s[1..-2]}."
-#     puts "There are #{my_time.to_i > student_time.to_i ? (my_time.to_i - student_time.to_i) / 60 / 60 / 24 : (student_time.to_i - my_time.to_i) / 60 / 60 / 24 } days between their birthdays"
-#     puts "#{student_name}'s zodiac sign is #{student_time.zodiac_sign}'"
-# else
-#     print "Please enter their birth year: "
-#     birth_year = gets.chomp.to_i
-#     print "Please enter their birth month: "
-#     birth_month = gets.chomp.to_i
-#     print "Please enter their birth day: " 
-#     birth_day = gets.chomp.to_i
-#     students[student_name] = [[birth_day, birth_month, birth_year], my_dob]
-#     student_dob = students[student_name][0]
-#     student_time = Time.new(2018, student_dob.to_s[4..5].to_i, student_dob.to_s[1..2].to_i)
-#     my_time = Time.new(2018, my_dob.to_s[4..5].to_i, my_dob.to_s[1..2].to_i)
-#     puts "#{student_name}'s D.O.B. is #{students[student_name][0].to_s[1..-2]} and Kieran's D.O.B. is #{my_dob.to_s[1..-2]}."
-#     puts "There are #{my_time.to_i > student_time.to_i ? (my_time.to_i - student_time.to_i) / 60 / 60 / 24 : (student_time.to_i - my_time.to_i) / 60 / 60 / 24 } days between their birthdays"
-#     puts "#{student_name}'s zodiac sign is #{student_time.zodiac_sign}'"
-# end
+print "Please enter a student name: "
+student_name = gets.chomp
+if students.keys.include?(student_name)
+    student_dob = students[student_name][0]
+    student_time = Time.new(2018, student_dob.to_s[4..5].to_i, student_dob.to_s[1..2].to_i)
+    my_time = Time.new(2018, my_dob.to_s[4..5].to_i, my_dob.to_s[1..2].to_i)
+    puts "#{student_name}'s D.O.B. is #{students[student_name][0].to_s[1..-2]} and Kieran's D.O.B. is #{my_dob.to_s[1..-2]}."
+    puts "There are #{my_time.to_i > student_time.to_i ? (my_time.to_i - student_time.to_i) / 60 / 60 / 24 : (student_time.to_i - my_time.to_i) / 60 / 60 / 24 } days between their birthdays"
+    puts "#{student_name}'s zodiac sign is #{student_time.zodiac_sign}'"
+else
+    print "Please enter their birth year: "
+    birth_year = gets.chomp.to_i
+    print "Please enter their birth month: "
+    birth_month = gets.chomp.to_i
+    print "Please enter their birth day: " 
+    birth_day = gets.chomp.to_i
+    students[student_name] = [[birth_day, birth_month, birth_year], my_dob]
+    student_dob = students[student_name][0]
+    student_time = Time.new(2018, student_dob.to_s[4..5].to_i, student_dob.to_s[1..2].to_i)
+    my_time = Time.new(2018, my_dob.to_s[4..5].to_i, my_dob.to_s[1..2].to_i)
+    puts "#{student_name}'s D.O.B. is #{students[student_name][0].to_s[1..-2]} and Kieran's D.O.B. is #{my_dob.to_s[1..-2]}."
+    puts "There are #{my_time.to_i > student_time.to_i ? (my_time.to_i - student_time.to_i) / 60 / 60 / 24 : (student_time.to_i - my_time.to_i) / 60 / 60 / 24 } days between their birthdays"
+    puts "#{student_name}'s zodiac sign is #{student_time.zodiac_sign}'"
+end
 
