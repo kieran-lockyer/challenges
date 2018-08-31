@@ -1,9 +1,14 @@
-class Cat
+class Pet
     def initialize(name)
         @name = name
-        @walks = walks
     end
+    
+    def pet
+        puts "#{@name} says 'Thanks for the pet'"
+    end
+end
 
+class Cat < Pet
     def speak
         puts "#{@name} says meow."
         return self
@@ -12,9 +17,7 @@ end
 
 # cat = Cat.new("Chairman Meow")
 
-# cat.speak.walks.walks.display_walks.walks.display_walks
-
-class Dog
+class Dog < Pet
     require 'geocoder'
     attr_accessor :breed, :age, :location, :breed
 
@@ -32,11 +35,6 @@ class Dog
         self
     end
 
-    # #setter
-    # def name=(name)
-    #     @name = name
-    # end
-
     # #getter
     def name
         return @name
@@ -44,16 +42,34 @@ class Dog
     end
 
     def walks(location, distance)
-        @walks.push([Time.now, distance, Geocoder.search(location).first.coordinates])
+        @walks.push(Walk.new(location, distance))
         return self
     end
 
     def display_walks
         puts "#{@name} has been for #{@walks.count} walks today."
         for walk in @walks
-            puts "At #{walk[0]}, #{@name} walked #{walk[1]}km's from #{Geocoder.search(walk[2]).first.address}"
+            puts "  - #{walk.time.strftime("On %m/%d/%Y at %I:%M%p")} #{@name} walked #{walk.distance}km from #{Geocoder.search(walk.location).first.city}"
         end
         return self
+    end
+
+    def total_distance
+        total_distance = 0
+        for walk in @walks
+            total_distance += walk.distance
+        end
+        puts "Total distance: #{total_distance}km"
+        return self
+    end
+end
+
+class Walk
+    attr_accessor :location, :distance, :time
+    def initialize(location, distance)
+        @location = Geocoder.search(location).first.coordinates
+        @distance = distance
+        @time = Time.now
     end
 end
 
@@ -70,4 +86,6 @@ lassie.speak
 
 puts dog1.name
 
-dog1.walks("Brisbane", 20).walks("Brisbane", 10).display_walks
+dog1.walks("Brisbane", 20).walks("Brisbane", 10)
+dog1.display_walks
+dog1.total_distance
