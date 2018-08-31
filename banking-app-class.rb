@@ -12,15 +12,18 @@ class UI
             option = gets.chomp
             case option
             when "1"
-                create_customer
-                @customer = Customer.new(@name, @pin)
-                menu
+                if create_customer
+                    @customer = Customer.new(@name, @pin)
+                    menu
+                else
+                    puts "An account with this name already exists!"
+                end
             when "2"
                 if authenticate
                     @customer = Customer.new(@name, @pin, @balance, @history)
                     menu
                 else
-                    puts "You have used all available attempts. Please try again later"
+                    puts "You have used all available attempts. Please try again later!"
                     break
                 end
             when "3"
@@ -36,9 +39,15 @@ class UI
     def create_customer
         print %x{clear}
         print "Please enter your name: "
-        @name = gets.chomp
-        print "Please enter a 4 digit security pin: "
-        @pin = gets.chomp
+        @name = gets.chomp.to_sym
+        unless @@customer_data.include?(@name)
+            print "Please enter a 4 digit security pin: "
+            @pin = gets.chomp
+            @@customer_data[@name.to_sym] = {pin: @pin, balance: 0, history: []}
+            return true
+        else
+            return false
+        end
     end
 
     def authenticate
@@ -113,21 +122,27 @@ class Customer
     end
 
     def display_balance
-        puts "Your #{@account.type} account balance is #{@account.balance}."
+        puts "Your #{@account.type} account balance is $#{@account.balance}."
     end
 
     def deposit
         print "How much would you like to deposit: "
         amount = gets.chomp.to_i
         @account.balance += amount
-        @account.history.push("Deposited #{amount}")
+        puts "Deposited $#{amount}"
+        @account.history.push("Deposited $#{amount}")
     end
 
     def withdraw
         print "How much would you like to withdraw: "
         amount = gets.chomp.to_i
-        puts @account.balance > amount ? @account.balance -= amount : "Insufficent Funds"
-        @account.history.push("Withdrew #{amount}")
+        if @account.balance > amount
+            @account.balance -= amount
+            puts "Withdrew $#{amount}"
+            @account.history.push("Withdrew #{amount}")
+        else
+            puts "Insufficent Funds"
+        end
     end
 
     def display_history
