@@ -15,15 +15,16 @@
 # fuel_level (should display total litres in the tank)
 
 class Vehicle
-    def initialize(make, model)
+    def initialize(make, model, fuel_capacity)
         @make = make
         @model = model
+        @fuel_capacity = fuel_capacity
         @fuel = 0
     end
 
     def refuel(litres)
-        if @fuel + litres > 50
-            @fuel = 50
+        if @fuel + litres > @fuel_capacity
+            @fuel = @fuel_capacity
         else
             @fuel += litres
         end
@@ -44,18 +45,10 @@ class Motorbike < Vehicle
     def wheelie
         puts "#{@make} #{@model} pops a wheelie."
     end
-
-    def refuel(litres)
-        if @fuel + litres > 15
-            @fuel = 15
-        else
-            @fuel += litres
-        end
-    end
 end
 
-civic = Car.new("Honda", "Civic")
-low_rider = Motorbike.new("Harley Davidson", "Low Rider") 
+civic = Car.new("Honda", "Civic", 50)
+low_rider = Motorbike.new("Harley Davidson", "Low Rider", 15) 
 
 civic.refuel(50)
 low_rider.refuel(20)
