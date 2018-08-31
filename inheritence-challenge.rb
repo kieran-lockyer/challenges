@@ -20,6 +20,7 @@ class Vehicle
         @model = model
         @fuel_capacity = fuel_capacity
         @fuel = 0
+        @wheels = 4
     end
 
     def refuel(litres)
@@ -36,12 +37,22 @@ class Vehicle
 end
 
 class Car < Vehicle
+    def initialize
+        super(make, model, fuel_capacity, wheels)
+        @doors = 4
+    end
+
     def wind_up_windows
         puts "#{@make} #{@model} winds up windows."
     end
 end
 
 class Motorbike < Vehicle
+    def initialize
+        super(make, model, fuel_capacity)
+        @wheels = 2
+    end
+
     def wheelie
         puts "#{@make} #{@model} pops a wheelie."
     end
