@@ -66,6 +66,7 @@ end
 
 class Walk
     attr_accessor :location, :distance, :time
+    
     def initialize(location, distance)
         @location = Geocoder.search(location).first.coordinates
         @distance = distance
