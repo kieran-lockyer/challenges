@@ -1,0 +1,39 @@
+header {
+    border: 2px solid blue;
+    display: flex;
+}
+
+main {
+    border: 2px solid red;
+    display: flex;
+}
+
+footer {
+    border: 2px solid green;
+    display: flex;
+}
+
+div {
+    padding: 0.5rem 1rem;
+    text-align: center;
+    font-size: 2rem;
+    font-family: sans-serif;
+    border: 2px solid black;
+}
+
+.left {
+    flex: 1;
+}
+
+.center {
+    flex: 2;
+}
+
+.right {
+    flex: 1;
+}
+
+.bottommenu {
+    margin-left: auto;
+    width: 25%;
+}

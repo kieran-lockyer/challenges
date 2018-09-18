@@ -23,6 +23,8 @@ require 'terminal-table'
 # Email me at: #{person_email}
 # It's a pleasure doing business."
 
+require 'colorize'
+
 contacts = Hash.new
 
 15.times do
@@ -34,7 +36,7 @@ end
 rows = []
 
 for name, details in contacts
-    rows.push(["Name: #{name}", "Email: #{details[:email]}", "Phone: #{details[:phone]}"])
+    rows.push(["Name: #{name}".colorize(:blue), "Email: #{details[:email]}".colorize(:red), "Phone: #{details[:phone]}".colorize(:green)])
 end
 
 table = Terminal::Table.new :rows => rows

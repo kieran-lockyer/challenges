@@ -1,0 +1,43 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url('images/rithwick-pr-514678-unsplash.jpg');
+    background-size: cover;
+}
+
+nav,
+header,
+section {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+header {
+    height: 300px;
+    color: white;
+}
+
+nav,
+section,
+footer {
+    background-color: white;
+}
+
+nav {
+    height: 50px;
+}
+
+main {
+    display: flex;
+    justify-content: left;
+    width: 100%;
+}
+
+footer {
+    height: 50px;
+}
