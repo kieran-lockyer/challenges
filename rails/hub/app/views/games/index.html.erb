@@ -1,9 +1,14 @@
 <h1>Games</h1>
 
 <ul>
-  <li>Lego Batman</li>
-  <li>Mario Brothers</li>
-  <li>Doom</li>
+  <% for game in @games %>
+    <li><strong>Title: <%= game.title %></strong> 
+    <ul>
+      
+      <li>Rating: <%= game.rating %> </li>
+      <li>Gross Earnings: <%= number_to_currency(game.total_gross) %> </li>
+    </ul>
+    </li>
+  <% end %>
 </ul>
 
-<%= @games %>

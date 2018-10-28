@@ -1,0 +1,13 @@
+<h1>Projects</h1>
+
+<ul>
+  <% for project in @projects %>
+    <li><strong>Title: <%= project.title %></strong> 
+    <ul>
+      <li><%= project.description %> </li>
+      <li>Location: <%= project.description %> </li>
+      <li>Cost: <%= number_to_currency(project.cost) %> </li>
+    </ul>
+    </li>
+  <% end %>
+</ul>
