@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Ajax</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+</head>
+
+<body>
+    <div>
+        <form id="tweetForm">
+            <input type="text" id="newTweet" value="New Tweet">
+            <input type="submit" id="submitTweet" value="Submit">
+        </form>
+    </div>
+
+
+
+    <ul id="tweets">
+
+    </ul>
+    <script>
+        let $tweetBox = $('#tweets')
+        let $newTweet = $('#newTweet')
+        let $submitTweet = $('#submitTweet')
+        let $tweetForm = $('#tweetForm')
+        // $.get('http://localhost:3000/tweets?format=json', function (response) {
+        //     for (let tweet of response) {
+        //         console.log(tweet)
+        //         let $tweetContent = $('<li>')
+        //         $tweetContent.html(tweet.message)
+        //         $tweetBox.prepend($tweetContent)
+        //     }
+        // });
+        fetch('http://localhost:3000/tweets?format=json').then(
+            function (response) {
+                return response.json()
+            }).then(
+            function (response) {
+                for (let tweet of response) {
+                    let $tweetContent = $('<li>')
+                    $tweetContent.html(tweet.message)
+                    $tweetBox.prepend($tweetContent)
+                }
+            }
+        ).catch(function (error) {
+            console.error('Oh oh!!!', error)
+        })
+
+        $tweetForm.on('submit', (event) => {
+            event.preventDefault()
+            console.log(event)
+            fetch('http://localhost:3000/tweets?format=json', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        tweet: {
+                            message: `${$newTweet.val()}`
+                        }
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(res => res.json())
+                .then(res => {
+                    console.log('Success', JSON.stringify(res))
+                    return false
+                })
+                .catch(err => console.error('Oh No!', err))
+
+            $newTweet.val('New Tweet')
+            return false
+        })
+    </script>
+</body>
+
+</html>

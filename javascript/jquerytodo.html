@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Todo List</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+</head>
+
+<body class="has-text-centered">
+  <progress class="progress is-primary" value="0" max="100">0%</progress>
+  <nav class="level">
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <div class="level-item">
+      <div>
+        <div class="heading">To Do</div>
+        <h1 class="title is-1">0</h1>
+      </div>
+    </div>
+  </nav>
+
+  <form>
+    <input type="text" class="input is-large is-primary has-text-centered" placeholder="add a todo!" value="">
+  </form>
+
+  <br>
+
+  <div id="tasks"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
+  <script>
+    // Select all our elements
+    let $form = $('form');
+    let $input = $('form input');
+    let $tasks = $('#tasks');
+    let $totalTasks = $('h1');
+    let $progress = $('progress');
+
+    // Listen for form submission
+    $form.on('submit', function (event) {
+      event.preventDefault();
+      addTask($input.val());
+      $input.val('')
+    })
+
+    // Create new task
+    function addTask(task) {
+      let notification = $(`<div class="notification">${task}</div>`)
+      notification.on('click', toggleStatus)
+      $tasks.prepend(notification);
+      $totalTasks.text($tasks.children().length)
+      console.log(Cookies.set('task', {
+        desc: task,
+        done: false
+      }))
+    }
+
+    // Mark a task as complete
+    function toggleStatus(event) {
+      let task = $(event.target)
+      if (task.hasClass('is-primary')) {
+        task.removeClass('notification is-primary')
+        task.addClass('notification')
+      } else {
+        task.addClass('notification is-primary')
+      }
+      updateProgress();
+    }
+
+    // Update progress bar
+    function updateProgress() {
+      let totalTasks = $tasks.children.length;
+      let completedTasks = $('.notification.is-primary').length;
+      $progress.val((completedTasks / totalTasks) * 100)
+    }
+
+    function loadCookies() {
+      for (let cookie in Cookies.get()) {
+        addTask(cookie['task'].desc)
+      }
+    }
+
+    loadCookies()
+  </script>
+
+</body>
+
+</html>

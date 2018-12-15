@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Book List</title>
+</head>
+
+<body>
+    <h1>My Book List</h1>
+
+    <script>
+        var books = [{
+            title: 'The Design of EveryDay Things',
+            author: 'Don Norman',
+            image: 'https://png2.kisspng.com/sh/55fc55c653232783bbd99c49294b85bf/L0KzQYm3VcA5N5priZH0aYP2gLBuTgRpbV5pfeVyZ36wf7e0hgZmeqppees2dHjsfrj6TfVud6Vuh9DqbD3ndcTwhB4ufJlqRadqZkG3dYOChfVjbmY4RqU6NUm6QYm4UcUzPWg7S6g7NUm6R4q1kP5o/kisspng-the-design-of-everyday-things-emotional-design-the-5af14e29eebf53.3159718115257636259779.png',
+            alreadyRead: false
+        }, {
+            title: 'The Most Human Human',
+            author: 'Brian Christian',
+            image: 'https://www.qbd.com.au/img/products/0/9780670920792.jpg',
+            alreadyRead: true
+        }];
+
+        let body = document.body
+        let list = document.createElement('ul')
+        body.appendChild(list)
+        for (let book of books) {
+            let listItem = document.createElement('li')
+            let newBook = document.createTextNode(`${book.title}: ${book.author}`)
+            let bookImage = document.createElement('img')
+            bookImage.src = book.image
+            listItem.appendChild(newBook)
+            list.appendChild(listItem)
+            listItem.appendChild(bookImage)
+            if (book.alreadyRead) {
+                listItem.style.backgroundColor = 'green'
+            } else {
+                listItem.style.backgroundColor = 'red'
+            }
+        }
+    </script>
+</body>
+
+</html>

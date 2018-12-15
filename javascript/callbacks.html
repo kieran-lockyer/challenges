@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Callbacks & JSON</title>
+
+</head>
+
+<body>
+
+  <p id='user'></p>
+  <button id='getNewUser'>New User</button>
+
+  <script>
+    function parseRandomUser(err, randomUser) {
+      if (err) {
+        return null
+      }
+      return JSON.parse(randomUser).results[0]
+    }
+
+    getRandomUser = (callback) => {
+      // This function uses AJAX to hit the random user API.
+      // More info: https://randomuser.me
+
+      var request = new XMLHttpRequest();
+      request.open('GET', 'https://randomuser.me/api/', true);
+      request.onload = function () {
+        /* You'll start here */
+        callback(null, request.response);
+      }
+      request.onerror = function () {
+        callback('FAILED!')
+      }
+      request.send();
+    }
+
+    function printUser(randomUser) {
+      let fname = randomUser.name.first
+      let lname = randomUser.name.last
+      document.querySelector('#user').innerHTML =
+        `${fname} ${lname}`
+    }
+
+    getRandomUser(function (er, randomUser) {
+      let x = parseRandomUser(null, randomUser)
+      if (x) {
+        console.log(x)
+        printUser(x)
+      } else {
+        console.error('Failed to get x!')
+      }
+    }); // Execute the function
+
+    let getNewUser = document.querySelector('#getNewUser')
+    getNewUser.addEventListener('click', function () {
+      getRandomUser(function (er, randomUser) {
+        let x = parseRandomUser(null, randomUser)
+        if (x) {
+          console.log(x)
+          printUser(x)
+        } else {
+          console.error('Failed to get x!')
+        }
+      });
+    })
+  </script>
+</body>
+
+</html>

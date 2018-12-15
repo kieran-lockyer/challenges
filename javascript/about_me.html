@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>About Me</title>
+    <style>
+        .list-item {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>About Me</h1>
+
+    <ul>
+        <li>Nickname: <span id="nickname"></span>
+        <li>Favorites: <span id="favorites"></span>
+        <li>Hometown: <span id="hometown"></span>
+    </ul>
+
+    <script>
+        let body = document.body
+        body.style.fontFamily = 'Arial, sans-serif'
+        document.getElementById('nickname').innerHTML = 'Special K'
+        document.getElementById('favorites').innerHTML = 'Sultana Bran, Crunchy Nut, Crispx.'
+        document.getElementById('hometown').innerHTML = 'Melbourne'
+        let listItems = document.querySelectorAll('li')
+        for (let item of listItems) {
+            item.className = 'list-item'
+        }
+        let imageOfMe = document.createElement('img')
+        imageOfMe.src = 'https://pbs.twimg.com/profile_images/983326394078941184/hYBK9E8T_400x400.jpg'
+        body.appendChild(imageOfMe)
+    </script>
+</body>
+
+</html>
