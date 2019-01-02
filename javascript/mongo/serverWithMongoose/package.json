@@ -1,0 +1,20 @@
+{
+  "name": "server-with-mongoose",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server-with-mongoose.js",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "mocha": "^5.2.0",
+    "mongoose": "^5.4.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "nodemon server-with-mongoose.js",
+    "test": "mocha"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

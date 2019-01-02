@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Enquiries</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div>
+        <ul id="enquiries">
+            <% for (contact of contacts) { %>
+                <li>
+                    <p><%= `${contact.name}, ${contact.message}, ${contact.phone}, ${contact.email}`%></p>
+                </li>
+            <% } %> 
+        </ul>
+    </div>
+</body>
+
+</html>
