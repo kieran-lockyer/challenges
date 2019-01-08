@@ -8,7 +8,7 @@ class BookmarkList extends Component {
         bookmarks: []
     }
 
-    addBookmark(bookmark) {
+    addBookmark = (bookmark) => {
         this.setState({
             bookmarks: [...this.state.bookmarks, bookmark]
         })
@@ -16,7 +16,14 @@ class BookmarkList extends Component {
 
     componentDidMount() {
         Axios.get(bookmarkApi).then((res => {
-            console.log(res.data)
+            this.setState({
+                bookmarks: res.data
+            })
+        }))
+    }
+
+    componentDidUpdate() {
+        Axios.get(bookmarkApi).then((res => {
             this.setState({
                 bookmarks: res.data
             })

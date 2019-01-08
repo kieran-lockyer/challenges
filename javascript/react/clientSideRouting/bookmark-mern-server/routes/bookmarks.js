@@ -22,7 +22,6 @@ router.get('/', (req, res) => {
 // Only allow registered users to post and delete bookmarks
 router.use('/', isRegisteredUser)
 
-
 // POST /bookmarks (C)
 router.post('/', (req, res) => {
   // const bookmark = new Bookmark({ title: req.body.title, url: req.body.url })

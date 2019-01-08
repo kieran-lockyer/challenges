@@ -16,9 +16,12 @@ const routing = (
             <Nav />
             <Switch>
                 <Route exact path='/bookmarks' component={BookmarkList} />
-                <Route path='/bookmarks/new' render={(props) => <BookmarkForm {...props} addBookmark={BookmarkList.addBookmark} />} />
+                <Route path='/bookmarks/new' component={BookmarkForm} />
                 <Route exact path='/bookmarks/:id' component={Bookmark} />
                 <Route path='/bookmarks/:id/edit' component={BookmarkEdit} />
+                <Route path='/auth/register' component={UserRegister} />
+                <Route path='/auth/login' component={UserLogin} />
+                <Route path='/auth/logout' component={UserLogout} />
                 <Route exact path='/' component={App} />
                 <Route component={NotFound} />
             </Switch>

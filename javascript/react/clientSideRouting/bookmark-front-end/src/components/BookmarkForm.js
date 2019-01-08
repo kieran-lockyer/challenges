@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import Axios from 'axios'
+
+const bookmarkApi = 'http://localhost:3001/bookmarks'
 
 class BookmarkForm extends Component {
     state = {
@@ -14,9 +17,13 @@ class BookmarkForm extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault()
-        console.log(this.props)
-        this.props.addBookmark(this.state)
-        console.log('Added Bookmark', this.state)
+        Axios.post(bookmarkApi, this.state).then((response) => {
+            console.log('Added new bookmark')
+            this.setState({
+                title: '',
+                url: ''
+            })
+        })
     }
 
     render() {
