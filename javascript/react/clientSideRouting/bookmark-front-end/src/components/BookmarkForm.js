@@ -1,7 +1,4 @@
 import React, { Component } from 'react'
-import Axios from 'axios'
-
-const bookmarkApi = 'http://localhost:3001/bookmarks'
 
 class BookmarkForm extends Component {
     state = {
@@ -17,18 +14,13 @@ class BookmarkForm extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault()
-        Axios.post(bookmarkApi, this.state).then((response) => {
-            console.log('Added new bookmark')
-            this.setState({
-                title: '',
-                url: ''
-            })
-        })
+        this.props.addBookmark(this.state)
     }
 
     render() {
         return (
             <div>
+                <h4 className="center">Enter a new bookmark</h4>
                 <form onSubmit={this.handleSubmit}>
                     <label htmlFor="title">Title:</label>
                     <input type="text" id="title" onChange={this.handleChange} />

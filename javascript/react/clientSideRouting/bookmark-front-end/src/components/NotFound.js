@@ -1,3 +1,3 @@
 import React from 'react'
 
-export default () => { return <h1>Not Found</h1> }
+export default () => { return <h1 className='center'>Not Found</h1> }

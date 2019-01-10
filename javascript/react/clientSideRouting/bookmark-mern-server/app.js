@@ -48,4 +48,4 @@ app.get('/', (req, res) => {
   res.status(200).send('Bookmark server')
 })
 
-app.listen(process.env.PORT || 3001, () => console.log('Listening on http://localhost:3000'))
+app.listen(process.env.PORT || 3001, () => console.log('Listening on http://localhost:3001'))
